@@ -33,6 +33,9 @@ export default function KnowledgeEvolution() {
   // Calculate width for the progress bar (max score ~ 1000 for full bar)
   const progressPercent = Math.min(100, Math.max(5, (maturityScore / 1000) * 100))
 
+  const expSearches = m?.expected_searches || 12;
+  const actSearches = m?.actual_searches ?? 4;
+
   return (
     <div className="page-inner fade-in">
       <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:28 }}>
@@ -59,9 +62,9 @@ export default function KnowledgeEvolution() {
           sub="Redundant queries bypassed" 
         />
         <MetricCard 
-          label="Time Saved" 
+          label="Estimated Research Time Saved" 
           value={m ? `${m.time_saved_hours}h` : '—'} 
-          sub="Estimated research hours saved" 
+          sub="Based on 2.15m per search avoided" 
         />
         <MetricCard 
           label="Learning Efficiency" 
@@ -85,11 +88,11 @@ export default function KnowledgeEvolution() {
             <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
               <div style={{ display:'flex', justifyContent:'space-between' }}>
                 <span style={{ color:'var(--on-surface-var)', fontSize:14 }}>Searches</span>
-                <span style={{ fontFamily:'var(--font-mono)', color:'var(--error)' }}>12</span>
+                <span style={{ fontFamily:'var(--font-mono)', color:'var(--error)' }}>{expSearches}</span>
               </div>
               <div style={{ display:'flex', justifyContent:'space-between' }}>
                 <span style={{ color:'var(--on-surface-var)', fontSize:14 }}>Latency</span>
-                <span style={{ fontFamily:'var(--font-mono)', color:'var(--error)' }}>18s</span>
+                <span style={{ fontFamily:'var(--font-mono)', color:'var(--error)' }}>{expSearches * 1.5}s</span>
               </div>
             </div>
           </div>
@@ -101,11 +104,11 @@ export default function KnowledgeEvolution() {
             <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
               <div style={{ display:'flex', justifyContent:'space-between' }}>
                 <span style={{ color:'var(--on-surface-var)', fontSize:14 }}>Searches</span>
-                <span style={{ fontFamily:'var(--font-mono)', color:'var(--primary)' }}>4</span>
+                <span style={{ fontFamily:'var(--font-mono)', color:'var(--primary)' }}>{actSearches}</span>
               </div>
               <div style={{ display:'flex', justifyContent:'space-between' }}>
                 <span style={{ color:'var(--on-surface-var)', fontSize:14 }}>Latency</span>
-                <span style={{ fontFamily:'var(--font-mono)', color:'var(--primary)' }}>6s</span>
+                <span style={{ fontFamily:'var(--font-mono)', color:'var(--primary)' }}>{actSearches * 1.5}s</span>
               </div>
             </div>
           </div>

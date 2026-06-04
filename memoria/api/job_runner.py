@@ -35,9 +35,33 @@ def _run_research_sync(query: str) -> dict:
     except Exception:
         pass
 
-    try:
-        pipeline = IngestionPipeline(client)
-        ingest_stats = pipeline.run(query, max_search_results=3)
+        query_engine = HybridQueryEngine(client)
+        
+        # 1. Query Memory FIRST
+        initial_retrieval = query_engine.query(query)
+        knowledge_reused = len(initial_retrieval.get("relationships", []))
+        
+        # 2. Determine actual searches needed
+        expected_searches = 3
+        if knowledge_reused > 10:
+            actual_searches = 0
+        elif knowledge_reused > 5:
+            actual_searches = 1
+        else:
+            actual_searches = 3
+            
+        tracker.record_search_avoidance(expected_searches, actual_searches)
+
+        # 3. Conditionally run Web Search (Ingestion)
+        ingest_stats = {}
+        if actual_searches > 0:
+            pipeline = IngestionPipeline(client)
+            ingest_stats = pipeline.run(query, max_search_results=actual_searches)
+            # Re-query memory to get the combined new + old knowledge
+            retrieval_res = query_engine.query(query)
+            knowledge_reused = len(retrieval_res.get("relationships", []))
+        else:
+            retrieval_res = initial_retrieval
 
         if not db_connected:
             # We did the research (search + LLM extraction), but Neo4j is offline so we can't query the graph.
@@ -59,21 +83,25 @@ def _run_research_sync(query: str) -> dict:
                 "knowledge_gap_footprint": {"missing_structures": [
                     {"missing_entity": "Neo4j Database", "context": "Start Docker Desktop to enable memory persistence", "priority": "HIGH"}
                 ]},
-                "error": None
+                "error": None,
+                "memory_coverage": 0.0
             }
-
-        query_engine = HybridQueryEngine(client)
-        retrieval_res = query_engine.query(query)
 
         report_gen = ReportGenerator(client)
         report = report_gen.generate(query, retrieval_res)
         
         # Track memory usage analytics
         knowledge_new = ingest_stats.get('extracted_relationships_count', 0)
-        knowledge_reused = len(retrieval_res.get('relationships', []))
         tracker.record_knowledge_usage(knowledge_reused, knowledge_new)
         
-        return report.model_dump()
+        report_dict = report.model_dump()
+        
+        # Surface memory coverage to report
+        total_knowledge = knowledge_reused + knowledge_new
+        coverage_pct = round((knowledge_reused / total_knowledge * 100) if total_knowledge > 0 else 100.0, 1)
+        report_dict["memory_coverage"] = coverage_pct
+        
+        return report_dict
     except Exception as e:
         logger.error(f"Research error: {e}")
         # Return minimal fallback report

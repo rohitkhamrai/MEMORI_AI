@@ -17,6 +17,7 @@ export interface Metrics {
   token_savings: number; learning_efficiency: number; stale_refreshed: number;
   contradictions_resolved: number; duplicates_merged: number;
   knowledge_reused: number; knowledge_new: number;
+  expected_searches: number; actual_searches: number;
   maturity_stage?: string; maturity_score?: number;
   history?: { month: string, entities: number, claims: number, communities: number, reuse_rate: number }[];
 }

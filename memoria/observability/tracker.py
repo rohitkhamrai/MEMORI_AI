@@ -22,6 +22,8 @@ class MetricsTracker:
             "refresh_count": 0,
             "knowledge_reused": 0,
             "knowledge_new": 0,
+            "expected_searches": 0,
+            "actual_searches": 0,
             "history": []
         }
         self.load()
@@ -80,6 +82,16 @@ class MetricsTracker:
             self.increment("knowledge_reused", reused)
         if new > 0:
             self.increment("knowledge_new", new)
+
+    def record_search_avoidance(self, expected: int, actual: int):
+        """Records when memory successfully bypassed expected web searches."""
+        if expected > 0:
+            self.increment("expected_searches", expected)
+        if actual > 0:
+            self.increment("actual_searches", actual)
+        elif actual == 0 and expected > 0:
+            # We avoided all searches, still want to make sure it's logged
+            self.save()
 
     def take_snapshot(self, graph_stats: Dict[str, Any], reuse_rate: float):
         """Records a snapshot of the current state of the system."""

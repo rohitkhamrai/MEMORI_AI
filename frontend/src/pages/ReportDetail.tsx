@@ -131,6 +131,7 @@ export default function ReportDetail() {
               { k:'Claims', v: r?.factual_triple_trace?.records?.length ?? 0 },
               { k:'Contradictions', v: r?.divergence_contradiction_matrix?.contradictions?.length ?? 0 },
               { k:'Knowledge Gaps', v: r?.knowledge_gap_footprint?.missing_structures?.length ?? 0 },
+              { k:'Memory Coverage', v: r?.memory_coverage !== undefined ? `${r.memory_coverage}%` : 'N/A' },
             ].map(({k,v}) => (
               <div key={k} style={{ display:'flex', justifyContent:'space-between', padding:'8px 0', borderBottom:'1px solid rgba(255,255,255,0.04)', fontSize:13 }}>
                 <span style={{ color:'var(--on-surface-muted)', fontFamily:'var(--font-mono)', fontSize:11 }}>{k}</span>

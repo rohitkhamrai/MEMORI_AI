@@ -30,15 +30,17 @@ def _load_metrics() -> dict:
         # Manage history size and format for the chart
         if "history" not in defaults:
             defaults["history"] = []
-        if not defaults["history"]:
-            # Seed with initial simulated demo history if empty, to show chart growth 
-            # and to fulfill the 'demo dataset' requirement right out of the box
-            defaults["history"] = [
+        
+        # Only inject demo data into the RESPONSE if we don't have enough history yet.
+        # This will NOT save to disk because we aren't calling tracker.save() here.
+        # Once actual snapshots accumulate (>= 3), it uses real data entirely.
+        if len(defaults["history"]) < 3:
+            demo_history = [
                 {"month": "Jan", "entities": 200, "claims": 150, "communities": 2, "reuse_rate": 0.12},
                 {"month": "Feb", "entities": 1400, "claims": 1100, "communities": 12, "reuse_rate": 0.35},
                 {"month": "Mar", "entities": 6200, "claims": 5300, "communities": 28, "reuse_rate": 0.58}
             ]
-            
+            defaults["history"] = demo_history + defaults["history"]
     except Exception:
         pass
     return defaults
@@ -112,7 +114,10 @@ async def metrics():
         # but driven towards real data as queries happen
         memory_reuse_rate = 0.0
         
-    searches_avoided = knowledge_reused // 3
+    # Actual Searches Avoided
+    expected_searches = m.get("expected_searches", 0)
+    actual_searches = m.get("actual_searches", 0)
+    searches_avoided = max(0, expected_searches - actual_searches)
     time_saved_hours = round(searches_avoided * 2.15 / 60, 1)  # ~2.15 mins per deep search avoided
     token_savings = searches_avoided * 12500
     
@@ -122,13 +127,21 @@ async def metrics():
 
     graph_stats = _get_graph_stats()
     
-    # Maturity Score & Stage based on new formula: 
-    # (node_count * 0.1) + (relationship_count * 0.05) + (community_count * 10) + (reuse_rate * 500)
+    # Maturity Score & Stage based on revised formula emphasizing reuse and quality
     nodes = graph_stats.get("node_count", 0)
     rels = graph_stats.get("relationship_count", 0)
     comms = graph_stats.get("community_count", 0)
+    refreshes = m.get("refresh_count", 0)
+    contradictions = m.get("contradiction_count", 0)
     
-    maturity_score = round((nodes * 0.1) + (rels * 0.05) + (comms * 10) + (memory_reuse_rate * 500), 1)
+    maturity_score = round(
+        (nodes * 0.05) + 
+        (rels * 0.02) + 
+        (comms * 5) + 
+        (memory_reuse_rate * 800) + 
+        (refreshes * 2) + 
+        (contradictions * 5), 1
+    )
     
     if maturity_score < 100:
         maturity_stage = 'Stage 1: Sparse'
@@ -160,6 +173,8 @@ async def metrics():
         "duplicates_merged": m.get("refresh_count", 0) // 2,
         "maturity_score": maturity_score,
         "maturity_stage": maturity_stage,
+        "expected_searches": expected_searches,
+        "actual_searches": actual_searches,
         **graph_stats
     }
 
