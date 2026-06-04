@@ -174,7 +174,7 @@ async def metrics():
         "token_savings": token_savings,
         "learning_efficiency": learning_efficiency,
         "stale_refreshed": m.get("refresh_count", 0),
-        "contradictions_resolved": m.get("contradiction_count", 0),
+        "contradictions_detected": m.get("contradiction_count", 0),
         "duplicates_merged": m.get("refresh_count", 0) // 2,
         "maturity_score": maturity_score,
         "maturity_stage": maturity_stage,

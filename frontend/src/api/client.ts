@@ -15,7 +15,7 @@ export interface Metrics {
   // Evolution fields
   memory_reuse_rate: number; searches_avoided: number; time_saved_hours: number;
   token_savings: number; learning_efficiency: number; stale_refreshed: number;
-  contradictions_resolved: number; duplicates_merged: number;
+  contradictions_detected: number; duplicates_merged: number;
   knowledge_reused: number; knowledge_new: number;
   expected_searches: number; actual_searches: number;
   maturity_stage?: string; maturity_score?: number;

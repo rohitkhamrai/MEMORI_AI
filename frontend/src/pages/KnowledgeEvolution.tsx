@@ -91,7 +91,7 @@ export default function KnowledgeEvolution() {
                 <span style={{ fontFamily:'var(--font-mono)', color:'var(--error)' }}>{expSearches}</span>
               </div>
               <div style={{ display:'flex', justifyContent:'space-between' }}>
-                <span style={{ color:'var(--on-surface-var)', fontSize:14 }}>Latency</span>
+                <span style={{ color:'var(--on-surface-var)', fontSize:14 }}>Est. Latency</span>
                 <span style={{ fontFamily:'var(--font-mono)', color:'var(--error)' }}>{expSearches * 1.5}s</span>
               </div>
             </div>
@@ -107,7 +107,7 @@ export default function KnowledgeEvolution() {
                 <span style={{ fontFamily:'var(--font-mono)', color:'var(--primary)' }}>{actSearches}</span>
               </div>
               <div style={{ display:'flex', justifyContent:'space-between' }}>
-                <span style={{ color:'var(--on-surface-var)', fontSize:14 }}>Latency</span>
+                <span style={{ color:'var(--on-surface-var)', fontSize:14 }}>Est. Latency</span>
                 <span style={{ fontFamily:'var(--font-mono)', color:'var(--primary)' }}>{actSearches * 1.5}s</span>
               </div>
             </div>
@@ -169,8 +169,8 @@ export default function KnowledgeEvolution() {
             <h2 style={{ fontFamily:'var(--font-headline)', fontSize:16, fontWeight:600, marginBottom:16 }}>Knowledge Maintenance</h2>
             <div style={{ display:'flex', flexDirection:'column', gap:12 }}>
               <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center' }}>
-                <span style={{ fontSize:13, color:'var(--on-surface-muted)' }}>Contradictions Resolved</span>
-                <span style={{ fontFamily:'var(--font-mono)', fontWeight:600, color:'var(--secondary-dim)' }}>{m?.contradictions_resolved ?? '—'}</span>
+                <span style={{ fontSize:13, color:'var(--on-surface-muted)' }}>Contradictions Detected</span>
+                <span style={{ fontFamily:'var(--font-mono)', fontWeight:600, color:'var(--secondary-dim)' }}>{m?.contradictions_detected ?? '—'}</span>
               </div>
               <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center' }}>
                 <span style={{ fontSize:13, color:'var(--on-surface-muted)' }}>Stale Claims Refreshed</span>
