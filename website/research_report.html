@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MemoriaAI - Research Report</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;family=Manrope:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface": "#0f131f",
+                      "outline": "#908fa0",
+                      "inverse-on-surface": "#2c303d",
+                      "on-secondary-fixed": "#001f25",
+                      "surface-container-lowest": "#0a0e1a",
+                      "secondary": "#5de6ff",
+                      "secondary-fixed": "#a2eeff",
+                      "secondary-container": "#00cbe6",
+                      "outline-variant": "#464554",
+                      "background": "#0f131f",
+                      "primary": "#c0c1ff",
+                      "on-error-container": "#ffdad6",
+                      "on-background": "#dfe2f3",
+                      "surface-container-highest": "#313442",
+                      "secondary-fixed-dim": "#2fd9f4",
+                      "primary-container": "#8083ff",
+                      "on-primary": "#1000a9",
+                      "on-tertiary-container": "#081486",
+                      "tertiary-fixed-dim": "#bdc2ff",
+                      "surface-dim": "#0f131f",
+                      "on-tertiary-fixed": "#000767",
+                      "surface-container-low": "#171b28",
+                      "on-surface": "#dfe2f3",
+                      "on-surface-variant": "#c7c4d7",
+                      "inverse-surface": "#dfe2f3",
+                      "on-primary-fixed-variant": "#2f2ebe",
+                      "surface-tint": "#c0c1ff",
+                      "on-tertiary-fixed-variant": "#2f3aa3",
+                      "inverse-primary": "#494bd6",
+                      "error-container": "#93000a",
+                      "on-secondary-fixed-variant": "#004e5a",
+                      "surface-bright": "#353946",
+                      "tertiary-container": "#7c87f3",
+                      "error": "#ffb4ab",
+                      "on-primary-container": "#0d0096",
+                      "on-error": "#690005",
+                      "surface-variant": "#313442",
+                      "primary-fixed-dim": "#c0c1ff",
+                      "surface-container-high": "#262a37",
+                      "primary-fixed": "#e1e0ff",
+                      "on-secondary": "#00363e",
+                      "tertiary-fixed": "#e0e0ff",
+                      "surface-container": "#1b1f2c",
+                      "on-tertiary": "#131e8c",
+                      "tertiary": "#bdc2ff",
+                      "on-secondary-container": "#00515d",
+                      "on-primary-fixed": "#07006c"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-sm": "12px",
+                      "margin-desktop": "48px",
+                      "gutter": "24px",
+                      "base": "8px",
+                      "stack-md": "24px",
+                      "stack-lg": "48px",
+                      "margin-mobile": "20px",
+                      "container-max-width": "1280px"
+              },
+              "fontFamily": {
+                      "label-caps": [
+                              "JetBrains Mono"
+                      ],
+                      "body-sm": [
+                              "Hanken Grotesk"
+                      ],
+                      "body-md": [
+                              "Hanken Grotesk"
+                      ],
+                      "headline-lg": [
+                              "Manrope"
+                      ],
+                      "headline-md": [
+                              "Manrope"
+                      ],
+                      "headline-lg-mobile": [
+                              "Manrope"
+                      ],
+                      "body-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "headline-sm": [
+                              "Manrope"
+                      ]
+              },
+              "fontSize": {
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-sm": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 19, 31, 0.5); 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(192, 193, 255, 0.2); 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(192, 193, 255, 0.4); 
+        }
+        
+        /* Glass card styling utility classes */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .glow-effect:hover {
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body-md min-h-screen flex selection:bg-primary/30 selection:text-primary">
+<!-- SideNavBar -->
+<nav class="bg-surface-container-low dark:bg-surface-container-lowest text-primary dark:text-primary-fixed-dim font-body-md text-body-md w-[240px] h-full fixed left-0 top-0 border-r border-white/10 backdrop-blur-xl shadow-xl transition-all duration-300 ease-in-out flex flex-col p-stack-md z-50 hidden md:flex">
+<!-- Brand -->
+<div class="flex items-center gap-3 mb-stack-lg">
+<div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center border border-primary/30">
+<span class="material-symbols-outlined text-primary" data-icon="memory">memory</span>
+</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary leading-tight">MemoriaAI</h1>
+<p class="font-label-caps text-label-caps text-outline-variant">Research Hub</p>
+</div>
+</div>
+<!-- CTA -->
+<button class="bg-primary text-on-primary w-full py-3 rounded-lg font-body-md font-semibold mb-stack-md flex items-center justify-center gap-2 glow-effect transition-all duration-200">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+            New Research
+        </button>
+<!-- Navigation Links -->
+<div class="flex flex-col gap-2 flex-grow">
+<!-- Dashboard (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-on-surface-variant/70 hover:bg-white/5 transition-colors font-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<!-- Research (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-on-surface-variant/70 hover:bg-white/5 transition-colors font-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="science">science</span>
+                Research
+            </a>
+<!-- Knowledge Graph (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-on-surface-variant/70 hover:bg-white/5 transition-colors font-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+                Knowledge Graph
+            </a>
+<!-- Reports (Active) -->
+<a class="flex items-center gap-3 px-4 py-3 text-primary dark:text-primary font-bold shadow-[0_0_15px_rgba(99,102,241,0.3)] bg-primary/10 rounded-lg font-body-md transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="description" data-weight="fill" style="font-variation-settings: 'FILL' 1;">description</span>
+                Reports
+            </a>
+<!-- Settings (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-on-surface-variant/70 hover:bg-white/5 transition-colors font-body-md mt-auto" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+</div>
+<!-- User Profile minimal -->
+<div class="mt-stack-md pt-stack-sm border-t border-white/10 flex items-center gap-3">
+<img alt="User profile" class="w-8 h-8 rounded-full border border-white/20" data-alt="A close up portrait photo of a professional person, representing a user profile picture, high quality, professional lighting, dark mode UI style aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnQgatPyyVT6zxJOWhpmOS1HYITjQAZ1t9-SgjsUaQzwbeMqayctSCWtbsAwgCNeKEL-wLLudRK1wXLouKmuxX5GmID819I146Iof-MWeh8FSStbvLa0Ru43j7jHrkYTj3-cYq_P4t3R54vHM3QeCdnatVNc6gQ-0jVr_Ow7yc2nlG11UHkUL0kPxsyBH31dKhJJ8z3jT7WIAvvV6JsFw5wnulg_x5u-psYHxvt2vC1QC_0RYa35pA7QJT994PDt1CZxIyaIYRwDk"/>
+<div class="flex-grow">
+<p class="font-body-sm text-body-sm font-medium text-on-surface">Dr. A. Turing</p>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col ml-0 md:ml-[240px] min-h-screen relative overflow-x-hidden">
+<!-- Background Ambient Glow -->
+<div class="fixed top-0 left-1/4 w-[800px] h-[400px] bg-primary/5 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+<div class="fixed bottom-1/4 right-0 w-[600px] h-[600px] bg-secondary/5 rounded-full blur-[150px] pointer-events-none -z-10"></div>
+<!-- TopAppBar -->
+<header class="bg-transparent text-primary dark:text-primary font-body-md text-body-md h-20 sticky top-0 backdrop-blur-md bg-surface/50 flex items-center justify-between px-margin-desktop w-full z-40 border-b border-white/5">
+<div class="flex items-center gap-4">
+<!-- Mobile Menu Toggle -->
+<button class="md:hidden text-on-surface-variant p-2 hover:bg-white/5 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<!-- Breadcrumbs -->
+<nav class="hidden sm:flex items-center gap-2 font-body-sm text-body-sm text-outline-variant">
+<a class="hover:text-primary transition-colors" href="#">Reports</a>
+<span class="material-symbols-outlined text-[16px]" data-icon="chevron_right">chevron_right</span>
+<span class="text-on-surface">Transformer Architecture</span>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary p-2 rounded-full transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border border-surface"></span>
+</button>
+<button class="text-on-surface-variant hover:text-primary p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+</div>
+</header>
+<!-- Content Area -->
+<div class="flex-1 p-margin-mobile md:p-margin-desktop max-w-container-max-width mx-auto w-full flex flex-col xl:flex-row gap-gutter">
+<!-- Left Column: Report Canvas -->
+<div class="flex-1 flex flex-col gap-stack-lg min-w-0">
+<!-- Header Section -->
+<section class="flex flex-col gap-stack-sm">
+<div class="flex flex-wrap items-center gap-3 mb-2">
+<span class="px-3 py-1 bg-primary/10 border border-primary/20 rounded-full font-label-caps text-label-caps text-primary tracking-widest uppercase">Research Report</span>
+<span class="text-outline-variant font-body-sm text-body-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="calendar_today">calendar_today</span>
+                            Oct 24, 2024
+                        </span>
+</div>
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface tracking-tight">Transformer Architecture in LLMs</h1>
+<!-- Top Metrics -->
+<div class="flex flex-wrap items-center gap-6 mt-4 pb-6 border-b border-white/5">
+<div class="flex flex-col gap-1">
+<span class="font-label-caps text-label-caps text-outline-variant">Confidence Score</span>
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-secondary">0.91</span>
+<span class="material-symbols-outlined text-secondary" data-icon="verified" data-weight="fill" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<div class="w-px h-10 bg-white/10 hidden sm:block"></div>
+<div class="flex flex-col gap-1">
+<span class="font-label-caps text-label-caps text-outline-variant">Sources Used</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">14</span>
+</div>
+<div class="w-px h-10 bg-white/10 hidden sm:block"></div>
+<div class="flex flex-col gap-1">
+<span class="font-label-caps text-label-caps text-outline-variant">Entities Extracted</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">47</span>
+</div>
+</div>
+</section>
+<!-- Extracted Entities Chips -->
+<section class="flex flex-col gap-3">
+<h3 class="font-label-caps text-label-caps text-outline-variant">Key Entities</h3>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1.5 rounded-full bg-surface-container-high border border-white/10 font-body-sm text-body-sm text-on-surface hover:border-primary/50 transition-colors cursor-default flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Transformer
+                        </span>
+<span class="px-3 py-1.5 rounded-full bg-surface-container-high border border-white/10 font-body-sm text-body-sm text-on-surface hover:border-primary/50 transition-colors cursor-default flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Attention
+                        </span>
+<span class="px-3 py-1.5 rounded-full bg-surface-container-high border border-white/10 font-body-sm text-body-sm text-on-surface hover:border-primary/50 transition-colors cursor-default flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> BERT
+                        </span>
+<span class="px-3 py-1.5 rounded-full bg-surface-container-high border border-white/10 font-body-sm text-body-sm text-on-surface hover:border-primary/50 transition-colors cursor-default flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span> GPT-4
+                        </span>
+<span class="px-3 py-1.5 rounded-full bg-surface-container-high border border-white/10 font-body-sm text-body-sm text-on-surface hover:border-primary/50 transition-colors cursor-default flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span> Self-Attention
+                        </span>
+</div>
+</section>
+<!-- Tabs & Content -->
+<section class="flex flex-col flex-1 h-full">
+<!-- Tab Navigation -->
+<div class="flex overflow-x-auto no-scrollbar border-b border-white/10 mb-stack-md">
+<button class="px-6 py-3 font-body-md text-body-md text-primary border-b-2 border-primary whitespace-nowrap bg-primary/5">
+                            Summary
+                        </button>
+<button class="px-6 py-3 font-body-md text-body-md text-on-surface-variant hover:text-on-surface whitespace-nowrap transition-colors">
+                            Claims <span class="ml-2 px-1.5 py-0.5 rounded-md bg-surface-container-highest text-xs">8</span>
+</button>
+<button class="px-6 py-3 font-body-md text-body-md text-on-surface-variant hover:text-on-surface whitespace-nowrap transition-colors">
+                            Sources <span class="ml-2 px-1.5 py-0.5 rounded-md bg-surface-container-highest text-xs">14</span>
+</button>
+<button class="px-6 py-3 font-body-md text-body-md text-on-surface-variant hover:text-on-surface whitespace-nowrap transition-colors flex items-center gap-2">
+                            Contradictions <span class="w-2 h-2 rounded-full bg-error"></span>
+</button>
+<button class="px-6 py-3 font-body-md text-body-md text-on-surface-variant hover:text-on-surface whitespace-nowrap transition-colors">
+                            Knowledge Gaps
+                        </button>
+</div>
+<!-- Active Tab Content: Summary -->
+<div class="glass-card rounded-xl p-stack-md md:p-stack-lg flex-1">
+<div class="prose prose-invert max-w-none">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="auto_awesome">auto_awesome</span>
+                                Executive Synthesis
+                            </h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-6 leading-relaxed">
+                                The Transformer architecture, introduced by Vaswani et al. in 2017, fundamentally altered the trajectory of natural language processing (NLP) by replacing recurrent neural networks (RNNs) with a mechanism relying entirely on <strong class="text-primary font-medium">self-attention</strong>. This paradigm shift enables massive parallelization during training, facilitating the development of current Large Language Models (LLMs).
+                            </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md my-8">
+<div class="bg-surface-container/50 border border-white/5 rounded-lg p-6 relative overflow-hidden group hover:border-primary/30 transition-colors">
+<div class="absolute top-0 right-0 w-24 h-24 bg-primary/10 rounded-bl-full -z-10 group-hover:bg-primary/20 transition-colors"></div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface mb-3">Self-Attention Mechanism</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                                        Allows the model to weigh the importance of different words in a sequence simultaneously, capturing long-range dependencies more effectively than sequential processing models.
+                                    </p>
+</div>
+<div class="bg-surface-container/50 border border-white/5 rounded-lg p-6 relative overflow-hidden group hover:border-secondary/30 transition-colors">
+<div class="absolute top-0 right-0 w-24 h-24 bg-secondary/10 rounded-bl-full -z-10 group-hover:bg-secondary/20 transition-colors"></div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface mb-3">Encoder-Decoder Scaling</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                                        While the original architecture featured both, modern generative models (like GPT series) primarily utilize scaled decoder-only structures optimized for next-token prediction tasks at massive parameter counts.
+                                    </p>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-6">
+                                Current research indicates a plateau in raw architectural improvements, with focus shifting towards <span class="text-secondary border-b border-secondary/30 border-dashed pb-0.5 cursor-help" title="e.g., FlashAttention">attention optimization</span>, structural sparsity, and context-window expansion mechanisms like RoPE (Rotary Position Embedding).
+                            </p>
+</div>
+</div>
+</section>
+<!-- Confidence Distribution Chart -->
+<section class="glass-card rounded-xl p-stack-md mt-auto">
+<div class="flex justify-between items-end mb-4">
+<h3 class="font-body-md text-body-md font-medium text-on-surface">Claim Confidence Distribution</h3>
+<span class="font-label-caps text-label-caps text-outline-variant">Avg: 91%</span>
+</div>
+<!-- Abstract gradient bar chart representation -->
+<div class="h-12 w-full flex items-end gap-1 rounded-sm overflow-hidden bg-surface-container">
+<!-- Bars -->
+<div class="w-[5%] h-[10%] bg-outline-variant/30 rounded-t-sm hover:bg-outline-variant transition-colors cursor-pointer" title="0-50%: 5% of claims"></div>
+<div class="w-[5%] h-[20%] bg-outline-variant/50 rounded-t-sm hover:bg-outline-variant transition-colors cursor-pointer" title="50-60%: 5% of claims"></div>
+<div class="w-[10%] h-[30%] bg-primary/40 rounded-t-sm hover:bg-primary/60 transition-colors cursor-pointer" title="60-70%: 10% of claims"></div>
+<div class="w-[15%] h-[50%] bg-primary/60 rounded-t-sm hover:bg-primary/80 transition-colors cursor-pointer" title="70-80%: 15% of claims"></div>
+<div class="w-[25%] h-[80%] bg-gradient-to-t from-primary to-secondary/80 rounded-t-sm hover:opacity-90 transition-opacity cursor-pointer" title="80-90%: 25% of claims"></div>
+<div class="w-[40%] h-[100%] bg-gradient-to-t from-secondary to-secondary-fixed rounded-t-sm hover:opacity-90 transition-opacity cursor-pointer shadow-[0_0_10px_rgba(93,230,255,0.3)]" title="90-100%: 40% of claims"></div>
+</div>
+<div class="flex justify-between mt-2 font-label-caps text-[10px] text-outline-variant">
+<span>Low Conf</span>
+<span>High Conf</span>
+</div>
+</section>
+</div>
+<!-- Right Column: Metadata Sidebar -->
+<aside class="w-full xl:w-[320px] flex flex-col gap-stack-md shrink-0">
+<!-- Action Buttons -->
+<div class="flex gap-3 mb-2">
+<button class="flex-1 bg-primary text-on-primary py-2.5 rounded-lg font-body-md font-semibold hover:shadow-[0_0_15px_rgba(99,102,241,0.4)] transition-all flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="picture_as_pdf">picture_as_pdf</span>
+                        Export PDF
+                    </button>
+<button class="flex-1 border border-primary text-primary py-2.5 rounded-lg font-body-md font-medium hover:bg-primary/5 transition-all flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="share">share</span>
+                        Share
+                    </button>
+</div>
+<!-- Research Metadata Glass Card -->
+<div class="glass-card rounded-xl p-stack-md flex flex-col gap-6 sticky top-28">
+<h3 class="font-headline-sm text-headline-sm text-on-surface border-b border-white/10 pb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" data-icon="info">info</span>
+                        Research Metadata
+                    </h3>
+<ul class="flex flex-col gap-4">
+<!-- Provider -->
+<li class="flex flex-col gap-1">
+<span class="font-label-caps text-label-caps text-outline-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]" data-icon="search">search</span> Search Provider
+                            </span>
+<span class="font-body-md text-body-md text-on-surface bg-surface-container px-3 py-1.5 rounded-md border border-white/5 inline-block w-max">Tavily + Serper</span>
+</li>
+<!-- Model -->
+<li class="flex flex-col gap-1">
+<span class="font-label-caps text-label-caps text-outline-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]" data-icon="psychology">psychology</span> Processing Model
+                            </span>
+<div class="flex items-center gap-2 bg-surface-container px-3 py-1.5 rounded-md border border-white/5 w-max">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-body-md text-body-md text-on-surface">Groq / llama3</span>
+</div>
+</li>
+<!-- Cost Metrics -->
+<li class="flex flex-col gap-2 pt-2 border-t border-white/5">
+<span class="font-label-caps text-label-caps text-outline-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]" data-icon="speed">speed</span> Compute Metrics
+                            </span>
+<div class="grid grid-cols-2 gap-2">
+<div class="bg-surface-container/50 border border-white/5 rounded-md p-2 flex flex-col">
+<span class="text-[11px] text-outline-variant">LLM Calls</span>
+<span class="font-body-md text-primary">2</span>
+</div>
+<div class="bg-surface-container/50 border border-white/5 rounded-md p-2 flex flex-col">
+<span class="text-[11px] text-outline-variant">Cache Hits</span>
+<span class="font-body-md text-secondary">38</span>
+</div>
+<div class="bg-surface-container/50 border border-white/5 rounded-md p-2 flex flex-col col-span-2">
+<span class="text-[11px] text-outline-variant">Total Time</span>
+<span class="font-body-md text-on-surface flex items-center gap-1">
+                                        4.2s
+                                        <span class="material-symbols-outlined text-[14px] text-secondary" data-icon="bolt">bolt</span>
+</span>
+</div>
+</div>
+</li>
+<!-- Maturity -->
+<li class="flex flex-col gap-1 pt-2 border-t border-white/5">
+<span class="font-label-caps text-label-caps text-outline-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]" data-icon="layers">layers</span> Report Maturity
+                            </span>
+<div class="flex items-center gap-2 mt-1">
+<div class="flex gap-1">
+<div class="w-8 h-1.5 bg-primary rounded-full"></div>
+<div class="w-8 h-1.5 bg-primary rounded-full shadow-[0_0_5px_rgba(192,193,255,0.5)]"></div>
+<div class="w-8 h-1.5 bg-surface-container-high rounded-full"></div>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant ml-2">Stage 2: Structured</span>
+</div>
+</li>
+</ul>
+</div>
+</aside>
+</div>
+</main>
+</body></html>

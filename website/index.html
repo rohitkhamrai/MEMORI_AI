@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MemoriaAI — Design Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0a0e1a;
+    color: #dfe2f3;
+    font-family: 'Manrope', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+  }
+  .logo {
+    font-size: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    color: #6366f1;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #c0c1ff, #22d3ee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+  .subtitle {
+    font-size: 16px;
+    color: #908fa0;
+    margin-bottom: 56px;
+    text-align: center;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    max-width: 1100px;
+    width: 100%;
+  }
+  .card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 28px;
+    text-decoration: none;
+    color: inherit;
+    backdrop-filter: blur(20px);
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(99,102,241,0.5);
+    box-shadow: 0 20px 40px rgba(99,102,241,0.15);
+  }
+  .card-icon {
+    font-size: 28px;
+    margin-bottom: 4px;
+  }
+  .card-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #6366f1;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .card-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #dfe2f3;
+  }
+  .card-desc {
+    font-size: 14px;
+    color: #908fa0;
+    line-height: 1.6;
+  }
+  .badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    background: rgba(99,102,241,0.15);
+    border: 1px solid rgba(99,102,241,0.3);
+    color: #c0c1ff;
+    width: fit-content;
+  }
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, #6366f1, #22d3ee);
+    border-radius: 1px;
+    margin: 32px auto;
+  }
+  .footer {
+    margin-top: 48px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: #464554;
+  }
+</style>
+</head>
+<body>
+  <div class="logo">✦ MemoriaAI</div>
+  <h1>Design Preview</h1>
+  <p class="subtitle">5 screens · Luminous Intelligence design system · Glass-SaaS aesthetic</p>
+
+  <div class="grid">
+    <a href="landing_page.html" class="card" target="_blank">
+      <div class="card-icon">🏠</div>
+      <div class="card-label">Screen 01</div>
+      <div class="card-title">Landing Page</div>
+      <p class="card-desc">Hero section, feature grid, animated knowledge graph, navigation, and footer.</p>
+      <span class="badge">Public · Marketing</span>
+    </a>
+
+    <a href="dashboard.html" class="card" target="_blank">
+      <div class="card-icon">⚡</div>
+      <div class="card-label">Screen 02</div>
+      <div class="card-title">Research Dashboard</div>
+      <p class="card-desc">Main app view with stats, live graph visualization, activity feed, and research queue.</p>
+      <span class="badge">App · Core</span>
+    </a>
+
+    <a href="graph_explorer.html" class="card" target="_blank">
+      <div class="card-icon">🕸️</div>
+      <div class="card-label">Screen 03</div>
+      <div class="card-title">Knowledge Graph Explorer</div>
+      <p class="card-desc">Full-screen graph with community clusters, entity filters, and node detail panel.</p>
+      <span class="badge">App · Graph</span>
+    </a>
+
+    <a href="research_report.html" class="card" target="_blank">
+      <div class="card-icon">📋</div>
+      <div class="card-label">Screen 04</div>
+      <div class="card-title">Research Report</div>
+      <p class="card-desc">Completed research output with claims, sources, contradictions, and cost metadata.</p>
+      <span class="badge">App · Reports</span>
+    </a>
+
+    <a href="observability.html" class="card" target="_blank">
+      <div class="card-icon">📊</div>
+      <div class="card-label">Screen 05</div>
+      <div class="card-title">Observability Dashboard</div>
+      <p class="card-desc">Real-time KPIs, cache hit rates, provider distribution, claims table, quality metrics.</p>
+      <span class="badge">App · Ops</span>
+    </a>
+  </div>
+
+  <div class="divider"></div>
+  <p class="footer">Generated by Stitch · Luminous Intelligence Design System · MemoriaAI © 2025</p>
+</body>
+</html>

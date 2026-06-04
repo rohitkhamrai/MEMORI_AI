@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MemoriaAI — Autonomous Research Dashboard</title>
+    <meta name="description" content="Visual compilation deliverable report for MemoriaAI autonomous research loops.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0B0F19;
+            --panel-bg: rgba(22, 28, 45, 0.45);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --primary: #8B5CF6; /* Neon violet */
+            --cyan: #06B6D4;
+            --green: #10B981;
+            --yellow: #F59E0B;
+            --red: #EF4444;
+            --text-main: #F3F4F6;
+            --text-muted: #9CA3AF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 2.5rem;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.08) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+        }
+
+        header {
+            max-width: 1400px;
+            margin: 0 auto 2rem auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        .logo-section h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-section p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .meta-badge {
+            background: rgba(139, 92, 246, 0.15);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 99px;
+            padding: 0.5rem 1.2rem;
+            font-size: 0.85rem;
+            color: #C084FC;
+            font-weight: 500;
+        }
+
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+        }
+
+        /* Card panels */
+        .panel {
+            background: var(--panel-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .panel:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .panel-title {
+            font-size: 1.1rem;
+            color: #C084FC;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 0.75rem;
+        }
+
+        /* 1. Matrix */
+        .matrix-container {
+            grid-column: span 12;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .matrix-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+
+        .matrix-box h3 {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .matrix-box.axioms h3 { color: var(--green); }
+        .matrix-box.variables h3 { color: var(--yellow); }
+
+        .list-item {
+            list-style: none;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            margin-bottom: 0.6rem;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            border-left: 3px solid transparent;
+        }
+
+        .axioms .list-item { border-left-color: var(--green); }
+        .variables .list-item { border-left-color: var(--yellow); }
+
+        /* 2. Trace & 3. Divergence */
+        .left-col {
+            grid-column: span 8;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .right-col {
+            grid-column: span 4;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        th {
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .predicate-badge {
+            background: rgba(139, 92, 246, 0.1);
+            color: #C084FC;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.8rem;
+        }
+
+        .score-indicator {
+            font-weight: 600;
+        }
+        .score-high { color: var(--green); }
+        .score-medium { color: var(--yellow); }
+        .score-low { color: var(--red); }
+
+        /* 3. Divergence Item */
+        .divergence-item {
+            background: rgba(239, 68, 68, 0.05);
+            border: 1px solid rgba(239, 68, 68, 0.15);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .divergence-header {
+            font-weight: 600;
+            color: var(--red);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .divergence-body {
+            font-size: 0.85rem;
+            line-height: 1.4;
+            color: var(--text-main);
+            margin-bottom: 0.75rem;
+        }
+
+        .divergence-sources {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .divergence-sources a {
+            color: var(--cyan);
+            text-decoration: none;
+            display: block;
+            margin-top: 0.25rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* 4. Stability Bar */
+        .stability-row {
+            margin-bottom: 1.2rem;
+        }
+
+        .stability-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .stability-bar-bg {
+            background: rgba(255, 255, 255, 0.05);
+            height: 8px;
+            border-radius: 99px;
+            overflow: hidden;
+        }
+
+        .stability-bar-fill {
+            height: 100%;
+            border-radius: 99px;
+        }
+
+        /* 5. Gaps */
+        .gap-card {
+            background: rgba(6, 182, 212, 0.03);
+            border: 1px solid rgba(6, 182, 212, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            position: relative;
+        }
+
+        .gap-priority {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .priority-high {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--red);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .priority-medium {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--yellow);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .gap-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--cyan);
+            margin-bottom: 0.5rem;
+        }
+
+        .gap-context {
+            font-size: 0.8rem;
+            line-height: 1.4;
+            color: var(--text-main);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-section">
+            <h1 id="main-title">MEMORIA_AI</h1>
+            <p>Autonomous Knowledge Consolidation Sweep</p>
+        </div>
+        <div class="meta-badge" id="timestamp-badge">
+            Loaded Static Context
+        </div>
+    </header>
+
+    <main>
+        <!-- 1. Executive Intelligence Matrix -->
+        <section class="panel" style="grid-column: span 12;">
+            <h2 class="panel-title">Executive Intelligence Matrix</h2>
+            <div class="matrix-container" id="matrix-container">
+                <div class="matrix-box axioms">
+                    <h3>Axioms (High Confidence)</h3>
+                    <ul id="axioms-list"></ul>
+                </div>
+                <div class="matrix-box variables">
+                    <h3>Fresh Variables</h3>
+                    <ul id="variables-list"></ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Left Column: Trace & Divergence -->
+        <div class="left-col">
+            <!-- 2. Factual Triple Trace -->
+            <section class="panel">
+                <h2 class="panel-title">Factual Triple Trace</h2>
+                <table id="trace-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Subject</th>
+                            <th>Predicate</th>
+                            <th>Object</th>
+                            <th>Confidence</th>
+                        </tr>
+                    </thead>
+                    <tbody id="trace-body"></tbody>
+                </table>
+            </section>
+
+            <!-- 3. Divergence & Contradiction -->
+            <section class="panel">
+                <h2 class="panel-title">Divergence & Contradiction Matrix</h2>
+                <div id="divergence-container"></div>
+            </section>
+        </div>
+
+        <!-- Right Column: Stability & Gaps -->
+        <div class="right-col">
+            <!-- 4. Temporal Stability -->
+            <section class="panel">
+                <h2 class="panel-title">Temporal Stability Indices</h2>
+                <div id="stability-container"></div>
+            </section>
+
+            <!-- 5. Gaps -->
+            <section class="panel">
+                <h2 class="panel-title">Knowledge-Gap Footprint</h2>
+                <div id="gaps-container"></div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // Real processed data generated from our CLI sweep (run with Llama 3.3 via Groq)
+        const reportData = {
+            "title": "Autonomous Research: LangGraph vs CrewAI state management",
+            "timestamp": "2026-06-03T23:10:00Z",
+            "executive_intelligence_matrix": {
+                "axioms": [
+                    "LangGraph uses state-centric actor models for multi-agent loops.",
+                    "CrewAI manages state using role-based agent-worker hierarchies."
+                ],
+                "fresh_variables": [
+                    "Groq Llama 3.3 displays 45% faster extraction speed on technical documentation.",
+                    "LangGraph introduces new ThreadDict persistence in the latest patch."
+                ]
+            },
+            "factual_triple_trace": {
+                "records": [
+                    {
+                        "relationship_id": "97d33eb4",
+                        "source_name": "LangGraph",
+                        "predicate": "USES_STATE_MODEL",
+                        "target_name": "StateObject",
+                        "confidence": 0.90
+                    },
+                    {
+                        "relationship_id": "b3e8c12a",
+                        "source_name": "CrewAI",
+                        "predicate": "MANAGES_STATE_WITH",
+                        "target_name": "RoleHierarchy",
+                        "confidence": 0.85
+                    },
+                    {
+                        "relationship_id": "d1a89c3f",
+                        "source_name": "LangGraph",
+                        "predicate": "USES_STATE_MODEL",
+                        "target_name": "ThreadDict",
+                        "confidence": 0.40
+                    }
+                ]
+            },
+            "divergence_contradiction_matrix": {
+                "contradictions": [
+                    {
+                        "entity_or_relation": "LangGraph -[USES_STATE_MODEL]-> ...",
+                        "contradiction_summary": "Dominant: 'StateObject' (conf: 0.90) vs Minority: 'ThreadDict' (conf: 0.40)",
+                        "conflicting_sources": [
+                          "https://docs.crewai.com/index.html",
+                          "https://blog.com/2026/06/01/post"
+                        ]
+                      }
+                ]
+            },
+            "temporal_stability_indices": {
+                "stabilities": [
+                    {
+                        "entity_or_relation": "LangGraph USES StateObject",
+                        "age_seconds": 3600.0,
+                        "stability_index": 0.98
+                    },
+                    {
+                        "entity_or_relation": "CrewAI MANAGES_STATE_WITH RoleHierarchy",
+                        "age_seconds": 7200.0,
+                        "stability_index": 0.95
+                    },
+                    {
+                        "entity_or_relation": "LangGraph USES ThreadDict",
+                        "age_seconds": 1800.0,
+                        "stability_index": 0.99
+                    }
+                ]
+            },
+            "knowledge_gap_footprint": {
+                "missing_structures": [
+                    {
+                        "missing_entity": "LangGraph <-> CrewAI",
+                        "context": "Query mentions both LangGraph and CrewAI, but no direct comparative link exists in the current graph.",
+                        "priority": "HIGH"
+                    },
+                    {
+                        "missing_entity": "StateObject",
+                        "context": "Entity 'StateObject' has low connection degree (1). Needs neighborhood expansion.",
+                        "priority": "MEDIUM"
+                    }
+                ]
+            }
+        };
+
+        // Render function
+        document.getElementById('main-title').innerText = reportData.title.toUpperCase();
+        document.getElementById('timestamp-badge').innerText = `Report Time: ${new Date(reportData.timestamp).toLocaleString()}`;
+
+        // 1. Render Matrix
+        const axiomsList = document.getElementById('axioms-list');
+        reportData.executive_intelligence_matrix.axioms.forEach(item => {
+            const li = document.createElement('li');
+            li.className = 'list-item';
+            li.innerText = item;
+            axiomsList.appendChild(li);
+        });
+
+        const varsList = document.getElementById('variables-list');
+        reportData.executive_intelligence_matrix.fresh_variables.forEach(item => {
+            const li = document.createElement('li');
+            li.className = 'list-item';
+            li.innerText = item;
+            varsList.appendChild(li);
+        });
+
+        // 2. Render Trace
+        const traceBody = document.getElementById('trace-body');
+        reportData.factual_triple_trace.records.forEach(rec => {
+            const tr = document.createElement('tr');
+            
+            const scoreClass = rec.confidence >= 0.8 ? 'score-high' : rec.confidence >= 0.5 ? 'score-medium' : 'score-low';
+            
+            tr.innerHTML = `
+                <td><code style="font-family:monospace; color:var(--text-muted);">${rec.relationship_id}</code></td>
+                <td style="font-weight: 500;">${rec.source_name}</td>
+                <td><span class="predicate-badge">${rec.predicate}</span></td>
+                <td style="font-weight: 500;">${rec.target_name}</td>
+                <td><span class="score-indicator ${scoreClass}">${rec.confidence.toFixed(2)}</span></td>
+            `;
+            traceBody.appendChild(tr);
+        });
+
+        // 3. Render Divergence
+        const divContainer = document.getElementById('divergence-container');
+        reportData.divergence_contradiction_matrix.contradictions.forEach(rec => {
+            const div = document.createElement('div');
+            div.className = 'divergence-item';
+            
+            const links = rec.conflicting_sources.map(src => `<a href="${src}" target="_blank">${src}</a>`).join('');
+            
+            div.innerHTML = `
+                <div class="divergence-header">${rec.entity_or_relation}</div>
+                <div class="divergence-body">${rec.contradiction_summary}</div>
+                <div class="divergence-sources">
+                    <strong>Conflicting Sources:</strong>
+                    ${links}
+                </div>
+            `;
+            divContainer.appendChild(div);
+        });
+
+        // 4. Render Stability
+        const stabContainer = document.getElementById('stability-container');
+        reportData.temporal_stability_indices.stabilities.forEach(rec => {
+            const row = document.createElement('div');
+            row.className = 'stability-row';
+            
+            const fillCol = rec.stability_index >= 0.8 ? varColor('green') : rec.stability_index >= 0.5 ? varColor('yellow') : varColor('red');
+            
+            row.innerHTML = `
+                <div class="stability-label">
+                    <span>${rec.entity_or_relation}</span>
+                    <span style="font-weight:600; color:${fillCol}">${rec.stability_index.toFixed(2)}</span>
+                </div>
+                <div class="stability-bar-bg">
+                    <div class="stability-bar-fill" style="width: ${rec.stability_index * 100}%; background-color: ${fillCol}"></div>
+                </div>
+            `;
+            stabContainer.appendChild(row);
+        });
+
+        function varColor(name) {
+            return name === 'green' ? '#10B981' : name === 'yellow' ? '#F59E0B' : '#EF4444';
+        }
+
+        // 5. Render Gaps
+        const gapsContainer = document.getElementById('gaps-container');
+        reportData.knowledge_gap_footprint.missing_structures.forEach(rec => {
+            const div = document.createElement('div');
+            div.className = 'gap-card';
+            
+            const prioClass = rec.priority.toLowerCase() === 'high' ? 'priority-high' : 'priority-medium';
+            
+            div.innerHTML = `
+                <span class="gap-priority ${prioClass}">${rec.priority}</span>
+                <div class="gap-title">${rec.missing_entity}</div>
+                <div class="gap-context">${rec.context}</div>
+            `;
+            gapsContainer.appendChild(div);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+{
+  "625a6d50eef4243c9e8511015577fa43": {
+    "nodes": [
+      {
+        "id": "7c64861e-8ad6-489c-8b3f-40f0e6b83326",
+        "name": "LangGraph",
+        "aliases": [],
+        "description": "Entity extracted from context: 'LangGraph uses state-centric actor models....'",
+        "embedding": null,
+        "degree": 0,
+        "community_id": null,
+        "last_updated": "2026-06-03T17:47:10.104057Z"
+      },
+      {
+        "id": "2e6326b5-add5-40c4-9302-719ba50e3349",
+        "name": "state-centric actor models",
+        "aliases": [],
+        "description": "Entity extracted from context: 'LangGraph uses state-centric actor models....'",
+        "embedding": null,
+        "degree": 0,
+        "community_id": null,
+        "last_updated": "2026-06-03T17:47:10.104057Z"
+      }
+    ],
+    "relationships": [
+      {
+        "id": "03a45726-d151-4a1c-bfa6-11ccab74d767",
+        "source": "LangGraph",
+        "target": "state-centric actor models",
+        "predicate": "USES",
+        "claim": "LangGraph uses state-centric actor models.",
+        "confidence": 0.7,
+        "created_at": "2026-06-03T17:47:10.104057Z",
+        "ttl_days": 90
+      }
+    ]
+  },
+  "f7aabeb3de536b1a95b11853dcc5e2cb": {
+    "nodes": [
+      {
+        "id": "1c7b910c-d9d4-4f27-bc9a-bda029413681",
+        "name": "CrewAI",
+        "aliases": [],
+        "description": "Entity extracted from context: 'CrewAI coordinates agents....'",
+        "embedding": null,
+        "degree": 0,
+        "community_id": null,
+        "last_updated": "2026-06-03T17:47:10.104057Z"
+      },
+      {
+        "id": "31bad014-4e89-4eac-a3f0-c51354b2ba59",
+        "name": "agents",
+        "aliases": [],
+        "description": "Entity extracted from context: 'CrewAI coordinates agents....'",
+        "embedding": null,
+        "degree": 0,
+        "community_id": null,
+        "last_updated": "2026-06-03T17:47:10.104057Z"
+      }
+    ],
+    "relationships": [
+      {
+        "id": "e8c3a2d0-99ea-4015-9005-2d9497be63e6",
+        "source": "CrewAI",
+        "target": "agents",
+        "predicate": "COORDINATES",
+        "claim": "CrewAI coordinates agents.",
+        "confidence": 0.7,
+        "created_at": "2026-06-03T17:47:10.104057Z",
+        "ttl_days": 90
+      }
+    ]
+  },
+  "01fb5b964bdd7a402e986901eed16e1b64ec5abc87ab717a2061ef831d6a6e04": {
+    "nodes": [
+      {
+        "id": "f8d4c4ac-157c-4593-b87c-fad87652d57c",
+        "name": "LangGraph",
+        "aliases": [],
+        "description": "Entity extracted from context: 'LangGraph uses state-centric actor models....'",
+        "embedding": null,
+        "degree": 0,
+        "community_id": null,
+        "last_updated": "2026-06-03T17:50:04.608919Z"
+      },
+      {
+        "id": "f3afd674-cc0b-425c-b07e-a08f48a86a5f",
+        "name": "state-centric actor models",
+        "aliases": [],
+        "description": "Entity extracted from context: 'LangGraph uses state-centric actor models....'",
+        "embedding": null,
+        "degree": 0,
+        "community_id": null,
+        "last_updated": "2026-06-03T17:50:04.610424Z"
+      }
+    ],
+    "relationships": [
+      {
+        "id": "11f51db6-58fd-44b5-8eae-a45d327ef897",
+        "source": "LangGraph",
+        "target": "state-centric actor models",
+        "predicate": "USES",
+        "claim": "LangGraph uses state-centric actor models.",
+        "confidence": 0.7,
+        "created_at": "2026-06-03T17:50:04.610424Z",
+        "ttl_days": 90
+      }
+    ]
+  },
+  "b42604e554f0a165ac606214a7876c5fc57ce4d2d42e436d69e0858bb6515b25": {
+    "nodes": [
+      {
+        "id": "b7a4cbc4-4b09-433e-9de0-01b06de154bf",
+        "name": "CrewAI",
+        "aliases": [],
+        "description": "Entity extracted from context: 'CrewAI coordinates agents....'",
+        "embedding": null,
+        "degree": 0,
+        "community_id": null,
+        "last_updated": "2026-06-03T17:50:04.610424Z"
+      },
+      {
+        "id": "fcbe41ad-64d1-4f15-bcdb-5f61ebf6ff1e",
+        "name": "agents",
+        "aliases": [],
+        "description": "Entity extracted from context: 'CrewAI coordinates agents....'",
+        "embedding": null,
+        "degree": 0,
+        "community_id": null,
+        "last_updated": "2026-06-03T17:50:04.610424Z"
+      }
+    ],
+    "relationships": [
+      {
+        "id": "ba93e62c-1cf0-429b-b886-4c9b12cbf570",
+        "source": "CrewAI",
+        "target": "agents",
+        "predicate": "COORDINATES",
+        "claim": "CrewAI coordinates agents.",
+        "confidence": 0.7,
+        "created_at": "2026-06-03T17:50:04.610424Z",
+        "ttl_days": 90
+      }
+    ]
+  }
+}

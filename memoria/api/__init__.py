@@ -1,0 +1,1 @@
+"""MemoriaAI FastAPI — API package."""
