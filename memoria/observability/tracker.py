@@ -19,7 +19,10 @@ class MetricsTracker:
             "claims_accepted": 0,
             "claims_rejected": 0,
             "contradiction_count": 0,
-            "refresh_count": 0
+            "refresh_count": 0,
+            "knowledge_reused": 0,
+            "knowledge_new": 0,
+            "history": []
         }
         self.load()
 
@@ -70,6 +73,34 @@ class MetricsTracker:
 
     def record_contradiction(self): self.increment("contradiction_count")
     def record_refresh(self): self.increment("refresh_count")
+
+    def record_knowledge_usage(self, reused: int, new: int):
+        """Records knowledge facts reused vs newly discovered."""
+        if reused > 0:
+            self.increment("knowledge_reused", reused)
+        if new > 0:
+            self.increment("knowledge_new", new)
+
+    def take_snapshot(self, graph_stats: Dict[str, Any], reuse_rate: float):
+        """Records a snapshot of the current state of the system."""
+        import datetime
+        snapshot = {
+            "month": datetime.datetime.now().strftime("%b"),
+            "entities": graph_stats.get("node_count", 0),
+            "claims": graph_stats.get("relationship_count", 0),
+            "communities": graph_stats.get("community_count", 0),
+            "reuse_rate": reuse_rate
+        }
+        history = self.metrics.get("history", [])
+        
+        # Keep only one snapshot per month for the chart
+        if history and history[-1].get("month") == snapshot["month"]:
+            history[-1] = snapshot
+        else:
+            history.append(snapshot)
+            
+        self.metrics["history"] = history
+        self.save()
 
     def get_summary(self) -> Dict[str, Any]:
         """Calculates averages and returns metrics summary."""

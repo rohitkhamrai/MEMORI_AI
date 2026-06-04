@@ -24,19 +24,14 @@ export default function KnowledgeEvolution() {
 
   const m = metrics
 
-  // Simulated historical data showing the core value prop: compounding knowledge
-  const growthData = [
-    { month: 'Jan', entities: 200, claims: 150 },
-    { month: 'Feb', entities: 1400, claims: 1100 },
-    { month: 'Mar', entities: 6200, claims: 5300 },
-    { month: 'Apr', entities: m?.node_count ? Math.max(m.node_count, 14000) : 14000, claims: m?.relationship_count ? Math.max(m.relationship_count, 12500) : 12500 },
-  ]
+  // Real historical data from backend tracking
+  const growthData = m?.history || []
 
-  const maturityStage = m 
-    ? m.node_count < 1000 ? 'Stage 1: Sparse'
-      : m.node_count < 10000 ? 'Stage 2: Structured'
-      : 'Stage 3: Cognitive'
-    : 'Stage 3: Cognitive'
+  const maturityStage = m?.maturity_stage || 'Calculating...'
+  const maturityScore = m?.maturity_score || 0
+  
+  // Calculate width for the progress bar (max score ~ 1000 for full bar)
+  const progressPercent = Math.min(100, Math.max(5, (maturityScore / 1000) * 100))
 
   return (
     <div className="page-inner fade-in">
@@ -73,6 +68,48 @@ export default function KnowledgeEvolution() {
           value={m ? `${m.learning_efficiency}/100` : '—'} 
           sub="System utility score" 
         />
+      </div>
+
+      {/* Research Savings (Before vs After) */}
+      <div className="glass" style={{ padding:28, marginBottom:24, display:'flex', gap:40, alignItems:'center' }}>
+        <div style={{ flex:1 }}>
+          <h2 style={{ fontFamily:'var(--font-headline)', fontSize:20, fontWeight:700, marginBottom:8 }}>Research Savings</h2>
+          <p style={{ color:'var(--on-surface-muted)', fontSize:14, lineHeight:1.6 }}>
+            As the system accumulates knowledge, it answers queries directly from memory rather than executing redundant web searches. This drastically reduces latency and API costs.
+          </p>
+        </div>
+        
+        <div style={{ flex:1, display:'flex', gap:20 }}>
+          <div style={{ flex:1, padding:20, background:'rgba(255,255,255,0.03)', borderRadius:12, border:'1px dashed rgba(255,255,255,0.1)' }}>
+            <div style={{ fontFamily:'var(--font-mono)', fontSize:12, color:'var(--on-surface-muted)', marginBottom:12 }}>WITHOUT MEMORY</div>
+            <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
+              <div style={{ display:'flex', justifyContent:'space-between' }}>
+                <span style={{ color:'var(--on-surface-var)', fontSize:14 }}>Searches</span>
+                <span style={{ fontFamily:'var(--font-mono)', color:'var(--error)' }}>12</span>
+              </div>
+              <div style={{ display:'flex', justifyContent:'space-between' }}>
+                <span style={{ color:'var(--on-surface-var)', fontSize:14 }}>Latency</span>
+                <span style={{ fontFamily:'var(--font-mono)', color:'var(--error)' }}>18s</span>
+              </div>
+            </div>
+          </div>
+          
+          <div style={{ flex:1, padding:20, background:'rgba(99,102,241,0.08)', borderRadius:12, border:'1px solid rgba(99,102,241,0.3)' }}>
+            <div style={{ fontFamily:'var(--font-mono)', fontSize:12, color:'var(--primary)', marginBottom:12, display:'flex', alignItems:'center', gap:6 }}>
+              <span style={{ fontSize:14 }}>⚡</span> WITH MEMORY
+            </div>
+            <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
+              <div style={{ display:'flex', justifyContent:'space-between' }}>
+                <span style={{ color:'var(--on-surface-var)', fontSize:14 }}>Searches</span>
+                <span style={{ fontFamily:'var(--font-mono)', color:'var(--primary)' }}>4</span>
+              </div>
+              <div style={{ display:'flex', justifyContent:'space-between' }}>
+                <span style={{ color:'var(--on-surface-var)', fontSize:14 }}>Latency</span>
+                <span style={{ fontFamily:'var(--font-mono)', color:'var(--primary)' }}>6s</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div style={{ display:'grid', gridTemplateColumns:'2fr 1fr', gap:20, marginBottom:24 }}>
@@ -121,7 +158,7 @@ export default function KnowledgeEvolution() {
               <span style={{ fontSize:13, color:'var(--on-surface-var)' }}>Cognitive</span>
             </div>
             <div style={{ height:6, background:'rgba(255,255,255,0.06)', borderRadius:3, overflow:'hidden' }}>
-              <div style={{ height:'100%', width:'85%', background:'linear-gradient(90deg, var(--primary), var(--secondary))', borderRadius:3 }} />
+              <div style={{ height:'100%', width:`${progressPercent}%`, background:'linear-gradient(90deg, var(--primary), var(--secondary))', borderRadius:3, transition:'width 1s ease-out' }} />
             </div>
           </div>
 

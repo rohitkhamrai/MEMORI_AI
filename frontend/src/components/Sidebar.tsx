@@ -2,10 +2,10 @@ import { NavLink, useLocation } from 'react-router-dom'
 
 const links = [
   { id: 'evolution', label: 'Knowledge Evolution', icon: '📈', path: '/' },
+  { id: 'memory', label: 'Memory Explorer', icon: '🧠', path: '/memory' },
   { id: 'research', label: 'Research', icon: '🔍', path: '/research' },
   { id: 'graph', label: 'Knowledge Graph', icon: '🕸️', path: '/graph' },
   { id: 'reports', label: 'Reports', icon: '📋', path: '/reports' },
-  { id: 'memory', label: 'Memory Explorer', icon: '🧠', path: '/memory' },
   { id: 'telemetry', label: 'System Telemetry', icon: '📡', path: '/telemetry' },
 ]
 

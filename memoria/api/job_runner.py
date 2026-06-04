@@ -15,6 +15,10 @@ _executor = ThreadPoolExecutor(max_workers=3)
 def _run_research_sync(query: str) -> dict:
     """Runs the full research pipeline synchronously (called in thread)."""
     import time
+    from memoria.observability.tracker import MetricsTracker
+    tracker = MetricsTracker()
+
+    import time
     from memoria.database.neo4j_client import Neo4jClient
     from memoria.ingestion.pipeline import IngestionPipeline
     from memoria.query.hybrid_engine import HybridQueryEngine
@@ -63,6 +67,12 @@ def _run_research_sync(query: str) -> dict:
 
         report_gen = ReportGenerator(client)
         report = report_gen.generate(query, retrieval_res)
+        
+        # Track memory usage analytics
+        knowledge_new = ingest_stats.get('extracted_relationships_count', 0)
+        knowledge_reused = len(retrieval_res.get('relationships', []))
+        tracker.record_knowledge_usage(knowledge_reused, knowledge_new)
+        
         return report.model_dump()
     except Exception as e:
         logger.error(f"Research error: {e}")
