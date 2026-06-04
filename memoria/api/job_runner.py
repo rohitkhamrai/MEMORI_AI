@@ -101,6 +101,8 @@ def _run_research_sync(query: str) -> dict:
         total_knowledge = knowledge_reused + knowledge_new
         coverage_pct = round((knowledge_reused / total_knowledge * 100) if total_knowledge > 0 else 100.0, 1)
         report_dict["memory_coverage"] = coverage_pct
+        report_dict["expected_searches"] = expected_searches
+        report_dict["actual_searches"] = actual_searches
         
         return report_dict
     except Exception as e:

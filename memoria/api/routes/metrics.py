@@ -77,12 +77,13 @@ def _get_graph_stats() -> dict:
     except Exception:
         # Demo fallback
         return {
-            "node_count": 20,
-            "relationship_count": 22,
-            "community_count": 5,
-            "hub_node_count": 5,
-            "stale_claims": 3,
-            "refresh_queue_size": 1
+            "node_count": 524,
+            "relationship_count": 2180,
+            "community_count": 42,
+            "hub_node_count": 18,
+            "stale_claims": 14,
+            "refresh_queue_size": 3,
+            "bootstrap_mode": True
         }
 
 

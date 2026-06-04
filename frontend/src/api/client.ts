@@ -19,6 +19,7 @@ export interface Metrics {
   knowledge_reused: number; knowledge_new: number;
   expected_searches: number; actual_searches: number;
   maturity_stage?: string; maturity_score?: number;
+  bootstrap_mode?: boolean;
   history?: { month: string, entities: number, claims: number, communities: number, reuse_rate: number }[];
 }
 

@@ -40,7 +40,12 @@ export default function KnowledgeEvolution() {
     <div className="page-inner fade-in">
       <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:28 }}>
         <div>
-          <h1 style={{ fontFamily:'var(--font-headline)', fontSize:28, fontWeight:700 }}>Knowledge Evolution</h1>
+          <h1 style={{ fontFamily:'var(--font-headline)', fontSize:28, fontWeight:700, display: 'flex', alignItems: 'center', gap: 12 }}>
+            Knowledge Evolution
+            {m?.bootstrap_mode && (
+              <span style={{ fontSize:11, padding:'4px 8px', background:'var(--surface-variant)', color:'var(--on-surface-muted)', borderRadius:4, textTransform:'uppercase', letterSpacing:1, fontWeight:600 }}>Bootstrap Mode</span>
+            )}
+          </h1>
           <p style={{ color:'var(--on-surface-muted)', fontSize:14, marginTop:4 }}>
             System intelligence compounding and research efficiency metrics.
           </p>
