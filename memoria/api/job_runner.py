@@ -35,6 +35,7 @@ def _run_research_sync(query: str) -> dict:
     except Exception:
         pass
 
+    try:
         query_engine = HybridQueryEngine(client)
         
         # 1. Query Memory FIRST
@@ -63,6 +64,10 @@ def _run_research_sync(query: str) -> dict:
         else:
             retrieval_res = initial_retrieval
 
+        # Track memory usage analytics (Do this BEFORE offline mode early return)
+        knowledge_new = ingest_stats.get('extracted_relationships_count', 0)
+        tracker.record_knowledge_usage(knowledge_reused, knowledge_new)
+
         if not db_connected:
             # We did the research (search + LLM extraction), but Neo4j is offline so we can't query the graph.
             # We return a dynamic report showing what we found in offline mode!
@@ -89,10 +94,6 @@ def _run_research_sync(query: str) -> dict:
 
         report_gen = ReportGenerator(client)
         report = report_gen.generate(query, retrieval_res)
-        
-        # Track memory usage analytics
-        knowledge_new = ingest_stats.get('extracted_relationships_count', 0)
-        tracker.record_knowledge_usage(knowledge_reused, knowledge_new)
         
         report_dict = report.model_dump()
         

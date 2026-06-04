@@ -127,20 +127,25 @@ async def metrics():
 
     graph_stats = _get_graph_stats()
     
-    # Maturity Score & Stage based on revised formula emphasizing reuse and quality
+    # Maturity Score & Stage based on learning metrics instead of raw size
     nodes = graph_stats.get("node_count", 0)
     rels = graph_stats.get("relationship_count", 0)
     comms = graph_stats.get("community_count", 0)
     refreshes = m.get("refresh_count", 0)
     contradictions = m.get("contradiction_count", 0)
     
+    contradiction_rate = min(1.0, contradictions / queries)
+    refresh_rate = min(1.0, refreshes / queries)
+    
+    community_score = min(150, comms * 3)
+    size_score = min(100, (nodes / 10000) * 100)
+    
     maturity_score = round(
-        (nodes * 0.05) + 
-        (rels * 0.02) + 
-        (comms * 5) + 
-        (memory_reuse_rate * 800) + 
-        (refreshes * 2) + 
-        (contradictions * 5), 1
+        (memory_reuse_rate * 350) +   # 35% weight
+        (contradiction_rate * 200) +  # 20% weight
+        (refresh_rate * 200) +        # 20% weight
+        community_score +             # 15% weight
+        size_score, 1                 # 10% weight
     )
     
     if maturity_score < 100:
